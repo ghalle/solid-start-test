@@ -1,15 +1,5 @@
-import { json } from "solid-start/server";
+import argon2 from "argon2";
 
-export function get(
-  { request }: { request: Request },
-  params: Record<string, string>
-) {
-  const data = { id: params["id"] };
-  return json(data);
-  // or
-  //   return new Response(JSON.stringify(data), {
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   });
+export async function get(ctx, params) {
+  return new Response(await argon2.hash(params["id"]));
 }
